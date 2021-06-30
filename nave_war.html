@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+     <title>nave_war</title>
+     <script src="Sprite.js"></script>
+    <style>
+      
+    </style>
+</head>
+<body>
+    <canvas id="screen" width="1341" height="637"></canvas>
+    <script>
+         const screen = document.getElementById('screen')
+         const ctx = screen.getContext('2d')
+         const currentjogadorId ='jogador1'
+         const currentjogadorId2 ='jogador2'
+         var numero = 0
+         var img;
+         var n = 0
+         var lx = 0
+         var numero2 = 0
+         var n2 = 0
+         var lx2 = 0
+         var estado2 = 0
+         var vida2=60
+         var estado=0
+         var vida=60
+         var score = 0
+         var score2 = 0
+         var record = 0
+         var record2 = 0
+         var coraçaox=0
+         var coraçaoy = 60
+         var num=0
+         var nume = 200
+         var namber=0
+         var leva_coracoaox=0
+        
+        
+        const game = {
+            jogadores : {
+                'jogador1': { x: 200, y: 0,cor: '#00ff00',largura: nave1.largura, altura: nave1.altura},
+                'jogador2': { x:800, y:325, cor:'red',largura: nave2.largura ,altura: nave2.altura}
+            }    
+        }
+
+        document.addEventListener('keydown',teclado)
+        function teclado(event){
+            const keypressed = event.key
+    
+            const jogador = game.jogadores[currentjogadorId]
+         
+
+            if (keypressed=== 'ArrowUp' && jogador.y >=1) {
+                jogador.y = jogador.y - 10
+                return
+            }
+
+            if (keypressed=== 'ArrowDown' && jogador.y < screen.height - 170) {
+                jogador.y = jogador.y + 10
+                return
+            }
+            
+            if (keypressed=== 'ArrowLeft' && jogador.x >=1) {
+                jogador.x = jogador.x - 10
+                return
+            }
+            
+            if (keypressed=== 'ArrowRight' && jogador.x < screen.width - 150) {
+                jogador.x = jogador.x + 10
+                return
+            }
+             
+            if (keypressed=== ' ') {
+               numero=1
+                return
+            }
+        }    
+
+        document.addEventListener('keydown',teclado2)
+        function teclado2(event2){
+            console.log(event2.key)
+            
+            const keypressed = event2.key
+            const jogador = game.jogadores[currentjogadorId2]
+          
+
+            if (keypressed=== 'w' && jogador.y >=1) {
+                jogador.y = jogador.y - 10
+                return
+            }
+
+            if (keypressed=== 's' && jogador.y < screen.height - 170) {
+                jogador.y = jogador.y + 10               
+                return
+            }
+            
+            if (keypressed=== 'a' && jogador.x >=1) {
+                jogador.x = jogador.x - 10
+                return
+            }
+            
+            if (keypressed=== 'd' && jogador.x < screen.width - 150) {
+                jogador.x = jogador.x + 10
+                return
+            }
+            if (keypressed=== 'v') {
+                numero2=1
+                return
+            }
+
+            }
+            img= new Image();
+            img.src = 'naves.png';
+            
+        renderScreen()
+
+        function renderScreen() {
+            ctx.fillStyle='blue'
+            ctx.fillRect(0,0,1341,637)
+           
+            barra_de_laiser();
+            
+           // nave1.desenha(20,40)
+            //nave2.desenha(200,40)
+          
+            barra_de_vida();
+            barra_de_vida1();
+            barra_de_laiser1();
+            diz();
+            diz2();
+            soma_score();
+            soma_score2();
+            analizerecord();
+           // leva_coracoao();
+            
+            if (estado==1 && namber < 150){
+                coraçao();
+                movecoraçao();
+                namber++
+            }
+
+            if (estado==2 && namber>1){
+                coraçao();
+                movecoraçao();
+                namber--
+            }
+
+            if (estado==3 && namber<150){
+                coraçao();
+                movecoraçao();
+                namber++
+            }
+            
+            
+            if (estado2<3 && estado<3){
+                encosta();
+                encosta2(); 
+                laiser();
+                laiser2();
+            };
+            const jogador = game.jogadores[currentjogadorId]
+          
+            nave2.desenha(jogador.x,jogador.y,)
+            const jogador2 = game.jogadores[currentjogadorId2]
+            nave1.desenha(jogador2.x,jogador2.y,)
+          
+            requestAnimationFrame(renderScreen)
+          }
+
+          function laiser() {
+            const jogador = game.jogadores[currentjogadorId]
+
+                if (numero== 1 && n<490){
+                   n+=5
+               }
+                if ( n == 480){
+                    numero=0
+                    n= 0
+                }
+                if (numero==0){
+                    lx = jogador.x 
+                }
+                else{
+                    lx=lx
+                }
+                   
+                ctx.fillStyle='#00ff7f'
+                ctx.fillRect(lx+67,jogador.y+n+153,10,20)
+            
+          }
+
+          function laiser2() {
+            const jogador = game.jogadores[currentjogadorId2]
+                
+                if (numero2== 0 ){
+                   n2=jogador.y
+                }
+        
+                if (numero2== 1 && n2>0){
+                   n2=n2 - 5
+                }
+                if ( n2 == 0){
+                    numero2=0
+                    n2= 0
+                }
+                if (numero2==0){
+                    lx2 = jogador.x 
+                }
+                else{
+                    lx2=lx2
+                }
+                   
+                ctx.fillStyle='#00ff7f'
+                ctx.fillRect(lx2+69,n2+40,10,20)
+          }
+
+          function barra_de_laiser(){
+              ctx.fillStyle='#00ff7f'
+              ctx.fillRect(10,580,60,10)
+              ctx.fillStyle='black'
+              ctx.font ='15px courier';
+              ctx.fillText ('laser',10,575)
+          }
+          function barra_de_vida(){
+
+          
+                if (estado2 == 1){
+                    vida2 =  40
+                   
+               }
+                if (estado2 == 2){
+                    vida2 = 20
+                    
+               }
+                if (estado2 == 3){
+                    vida2 = 0
+                    
+              } 
+            
+              ctx.fillStyle='red'
+              ctx.fillRect(10,550,vida2,10)
+              ctx.fillStyle='black'
+              ctx.font ='15px courier';
+              ctx.fillText ('vida',10,545)
+          }
+
+          
+          function barra_de_laiser1(){
+              ctx.fillStyle='#00ff7f'
+              ctx.fillRect(10,20,60,10)
+              ctx.fillStyle='black'
+              ctx.font ='15px courier';
+              ctx.fillText ('laser',10,15)
+          }
+          function barra_de_vida1(){
+                if (estado == 1){
+                    vida =  40
+            }
+                if (estado == 2){
+                    vida = 20
+            }
+                if (estado == 3){
+                    vida = 0
+            }
+
+              ctx.fillStyle='red'
+              ctx.fillRect(10,50,vida,10)
+              ctx.fillStyle='black'    
+              ctx.font ='15px courier';
+              ctx.fillText ('vida',10,45)
+          }
+         
+          function encosta(){
+            const jogador = game.jogadores[currentjogadorId]
+            if (lx2+10 == jogador.x  && n2 == jogador.y ){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x -10 && n2 == jogador.y+10){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x -20 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x -30 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            
+            if (lx2+10 == jogador.x -40 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x -50 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x -60 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +10 && n2 == jogador.y+10){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +20 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +30 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            
+            if (lx2+10 == jogador.x +40 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +50 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +60 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +70 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +80 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +90 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +100 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +110 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +120 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +130 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            if (lx2+10 == jogador.x +140 && n2 == jogador.y+20){
+               estado+=1
+               n2 = 0
+            }
+            
+            
+            
+          }
+          function diz(){
+              if (estado==3){
+                    ctx.fillStyle='#fff'
+                    ctx.font ='50px courier';
+                    ctx.fillText ('perdeu',70,85)
+              }
+          }
+
+           function encosta2(){
+            const jogador2 = game.jogadores[currentjogadorId2]
+            const jogador = game.jogadores[currentjogadorId]
+            if (lx+10 == jogador2.x  && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x - 10 && n+jogador.y == jogador2.y){
+                estado2+=1
+               
+            }
+            if (lx+10 == jogador2.x - 20 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x - 30 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x - 40 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x - 50 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x - 60 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x +10 && n+jogador.y == jogador2.y){
+                estado2+=1
+               
+            }
+            if (lx+10 == jogador2.x +20 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 30 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 40 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 50 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 60 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 70 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 80 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 90 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 100 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 110 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+             if (lx+10 == jogador2.x + 120 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+            if (lx+10 == jogador2.x + 130 && n+jogador.y == jogador2.y){
+                estado2+=1  
+            }
+            if (lx+10 == jogador2.x + 140 && n+jogador.y == jogador2.y){
+                estado2+=1
+            }
+          }
+          function diz2(){
+              if (estado2==3){
+                    ctx.fillStyle='#fff'
+                    ctx.font ='50px courier';
+                    ctx.fillText ('perdeu',70,400)
+              }
+          }
+
+          function soma_score(){
+              if (estado2==1){
+                  score=10
+              }
+              if (estado2==2){
+                  score=20
+              }
+              if (estado2==3){
+                  score=30
+              }
+              ctx.fillStyle='#fff'
+              ctx.font ='30px courier';
+              ctx.fillText (score,10,90)
+
+          }
+          function soma_score2(){
+              if (estado==1){
+                  score2=10
+              }
+              if (estado==2){
+                  score2=20
+              }
+              if (estado==3){
+                  score2=30
+              }
+              ctx.fillStyle='#fff'
+              ctx.font ='30px courier';
+              ctx.fillText (score2,10,530)
+
+          }
+          
+          function analizerecord(){
+              if (score>record){
+                  record = score
+              }
+                  ctx.fillStyle='#fff'
+                  ctx.font ='30px courier';
+                  ctx.fillText (record,10,130)
+              
+
+              if (score2 > record2 ){
+                  record2 = score2  
+              }
+                  ctx.fillStyle='#fff'
+                  ctx.font ='30px courier';
+                  ctx.fillText (record2,10,500)
+              
+          }
+          function movecoraçao(){
+               if (estado==1){
+                  coraçaox=60
+              }
+              if (estado==2){
+                  coraçaox=40
+              }
+              if (estado==3){
+                  coraçaox=20
+              }
+              if (coraçaoy<300){
+                  coraçaoy++
+              }
+              else {
+                   coraçaoy=60
+                }
+          }
+
+          function coraçao(){
+              if (coraçaox<=nume && num == 0){
+                    coraçaox++
+                    nume--
+              }
+              else{
+                  coraçaox--
+                  num=1
+              }
+              if (coraçaox==100){
+                  num=0
+              }
+             
+        
+             
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox+2,coraçaoy+2,5,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox,coraçaoy,8,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox-2,coraçaoy-2,12,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox-4,coraçaoy-4,15,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox-6,coraçaoy-6,18,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox-8,coraçaoy-8,21,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox-8,coraçaoy-10,10,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox-6,coraçaoy-12,7,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox+4,coraçaoy-10,10,2)
+
+            ctx.fillStyle='red'
+            ctx.fillRect(coraçaox+6,coraçaoy-12,7,2)
+
+
+          }
+
+          function  leva_coracoao(){
+              ctx.fillStyle='black'
+              ctx.fillRect(90,190,40,40)
+              ctx.fillStyle='black'
+              ctx.fillRect(40,180,60,10)
+              ctx.fillStyle='black'
+              ctx.fillRect(40,220,60,10)
+              ctx.fillStyle='black'
+              ctx.fillRect(40,180,10,50)
+
+
+          }
+
+ 
+          
+         
+     </script>
+    
+</body>
+</html>
