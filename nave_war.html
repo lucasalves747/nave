@@ -117,8 +117,7 @@
         renderScreen()
 
         function renderScreen() {
-            ctx.fillStyle='blue'
-            ctx.fillRect(0,0,1341,637)
+           fundo.desenha(0,0)
            
             barra_de_laiser();
             
@@ -187,7 +186,7 @@
                 }
                    
                 ctx.fillStyle='#00ff7f'
-                ctx.fillRect(lx+67,jogador.y+n+153,10,20)
+                ctx.fillRect(lx+65,jogador.y+n+40,10,20)
             
           }
 
@@ -332,36 +331,7 @@
                estado+=1
                n2 = 0
             }
-            if (lx2+10 == jogador.x +80 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            if (lx2+10 == jogador.x +90 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            if (lx2+10 == jogador.x +100 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            if (lx2+10 == jogador.x +110 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            if (lx2+10 == jogador.x +120 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            if (lx2+10 == jogador.x +130 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            if (lx2+10 == jogador.x +140 && n2 == jogador.y+20){
-               estado+=1
-               n2 = 0
-            }
-            
-            
+         
             
           }
           function diz(){
@@ -419,27 +389,7 @@
             if (lx+10 == jogador2.x + 70 && n+jogador.y == jogador2.y){
                 estado2+=1
             }
-            if (lx+10 == jogador2.x + 80 && n+jogador.y == jogador2.y){
-                estado2+=1
-            }
-            if (lx+10 == jogador2.x + 90 && n+jogador.y == jogador2.y){
-                estado2+=1
-            }
-            if (lx+10 == jogador2.x + 100 && n+jogador.y == jogador2.y){
-                estado2+=1
-            }
-            if (lx+10 == jogador2.x + 110 && n+jogador.y == jogador2.y){
-                estado2+=1
-            }
-             if (lx+10 == jogador2.x + 120 && n+jogador.y == jogador2.y){
-                estado2+=1
-            }
-            if (lx+10 == jogador2.x + 130 && n+jogador.y == jogador2.y){
-                estado2+=1  
-            }
-            if (lx+10 == jogador2.x + 140 && n+jogador.y == jogador2.y){
-                estado2+=1
-            }
+         
           }
           function diz2(){
               if (estado2==3){

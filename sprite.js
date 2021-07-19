@@ -9,5 +9,6 @@ function Sprite(x , y, largura, altura) {
     }
 
 }
-var nave1 = new Sprite(22,36,171,209),
-nave2 = new Sprite(243,48,390,223);
+var nave1 = new Sprite(1,7,141,190),
+nave2 = new Sprite(172,7,307,250),
+fundo = new Sprite(0,441,1341,1156);
